@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe SprockAssets do
   context 'on initialize' do
     it 'takes in custom paths' do
