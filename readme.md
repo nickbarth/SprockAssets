@@ -29,7 +29,12 @@ If you're using Sinatra, you can use the flash hash just like in Rails:
 
 ### Generate default assets
 
+Use the built in generator to generate some default assets. 
+
     sprock-assets generate_assets
+
+It will create a directory structure and default assets based on the configured settings.
+
     tree app/
     app/
     └── assets
