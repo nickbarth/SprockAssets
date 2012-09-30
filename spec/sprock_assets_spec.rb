@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SprockAssets do
-  context 'on initialize' do
+  context 'on Rack initialize' do
     it 'takes in custom paths' do
       env = Sprockets::Environment.any_instance
       env.should_receive(:append_path).with('ASSETS_PATH')
@@ -13,7 +13,7 @@ describe SprockAssets do
     end
   end
 
-  context 'on request' do
+  context 'on Rack request' do
     it 'should invoke Sprocket on URIs under /assets/' do
       rack_app = SprockAssets.new nil
       rack_app.assets.should_receive(:call)
