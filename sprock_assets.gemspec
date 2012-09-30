@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.summary       = 'A Ruby Gem for compiling assets through Sprock.'
   gem.description   = 'SprockAssets is a Rack Middleware you can include in your application for compiling your assets on the fly with Sprockets.'
   gem.homepage      = 'https://github.com/nickbarth/SprockAssets'
-  s.executables     = ['sprock-assets']
+  gem.executables   = ['sprock-assets']
 
   gem.add_dependency('sprockets')
   gem.add_development_dependency('rake')
