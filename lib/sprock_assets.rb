@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'sprockets'
 require 'sprock_assets/version'
 
@@ -17,8 +18,8 @@ class SprockAssets
     @app = app
     @settings = {
       assets_path:      'app',
-      javascripts_path: 'app/assets/stylesheets',
-      stylesheets_path: 'app/assets/javascripts',
+      javascripts_path: 'app/assets/javascripts',
+      stylesheets_path: 'app/assets/stylesheets',
     }.merge(settings)
 
     @assets = Sprockets::Environment.new(Dir.pwd) do |assets|
@@ -35,6 +36,24 @@ class SprockAssets
       @app.call env
     else
       @assets.call env
+    end
+  end
+
+  # Public: Generates the configured file structure for an applications assets.
+  def generate_assets
+    FileUtils.mkdir_p "#{@settings[:javascripts_path]}/coffee"
+    FileUtils.mkdir_p "#{@settings[:stylesheets_path]}/scss"
+    File.open("#{@settings[:javascripts_path]}/application.js", 'w') do |application_js|
+      application_js << (<<-EOS).gsub('      ', '')
+      //= require_tree ./coffee
+      EOS
+    end
+    File.open("#{@settings[:stylesheets_path]}/application.css", 'w') do |application_css|
+      application_css << (<<-EOS).gsub('      ', '')
+      /*
+       *= require_tree ./scss
+       */
+      EOS
     end
   end
 end
