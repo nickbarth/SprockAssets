@@ -4,7 +4,7 @@ SprockAssets is a Rack Middleware you can include in your application for compil
 
 ## Usage
 
-Here's how to use it.
+Here is how to use it.
 
 ### Add it to your Gemfile
 
@@ -18,7 +18,7 @@ Add a use to your `config.ru`
 
 ### Sinatra
 
-If you're using Sinatra, you can use the flash hash just like in Rails:
+If you are using Sinatra, you can use the flash hash just like in Rails:
 
     require 'sinatra/base'
     require 'sprock_assets'
@@ -50,7 +50,7 @@ It will create a directory structure and default assets based on the configured 
     ruby config.ru
     curl http://localhost/assets/stylesheets/application.css
     curl http://localhost/assets/javascripts/application.js
-    
+
 Your compiled assets will now be served at their corresponding URIs.
 
 ### License
