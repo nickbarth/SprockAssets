@@ -29,7 +29,7 @@ If you are using Sinatra, you can use the flash hash just like in Rails:
 
 ### Generate default assets
 
-Use the built in generator to generate some default assets. 
+Use the built in generator to generate some default assets.
 
     bundle exec sprock-assets generate_assets
 
