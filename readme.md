@@ -8,7 +8,7 @@ Here's how to use it.
 
 ### Add it to your Gemfile
 
-    gem 'sprock-assets', require 'sprock_assets'
+    gem 'sprock-assets', require: 'sprock_assets'
 
 ### Vanilla Rack apps
 
@@ -31,7 +31,7 @@ If you're using Sinatra, you can use the flash hash just like in Rails:
 
 Use the built in generator to generate some default assets. 
 
-    sprock-assets generate_assets
+    bundle exec sprock-assets generate_assets
 
 It will create a directory structure and default assets based on the configured settings.
 
