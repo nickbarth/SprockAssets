@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rack')
   gem.add_development_dependency('rspec')
-  gem.add_development_dependency('capybara')
 
   gem.files         = `git ls-files`.split($/)
   gem.test_files    = gem.files.grep /spec/

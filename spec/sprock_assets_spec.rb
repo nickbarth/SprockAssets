@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe SprockAssets do
+  Uglifier = Module.new
+  YUI = Module.new
+  YUI::CssCompressor = Module.new
+
+  before(:each) do
+    File.stub(:exists? => true)
+    Uglifier.stub(:new)
+    YUI::CssCompressor.stub(:new)
+  end
+
   context 'on Rack initialize' do
     it 'takes in custom paths' do
       env = Sprockets::Environment.any_instance
@@ -10,6 +20,13 @@ describe SprockAssets do
       SprockAssets.new nil, assets_path:      'ASSETS_PATH',
                             javascripts_path: 'JAVASCRIPTS_PATH',
                             stylesheets_path: 'STYLESHEETS_PATH'
+    end
+
+    it 'sets compressors on compile flag' do
+      env = Sprockets::Environment.any_instance
+      env.should_receive(:js_compressor=)
+      env.should_receive(:css_compressor=)
+      SprockAssets.new nil, compile: true
     end
   end
 
