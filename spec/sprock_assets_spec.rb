@@ -26,23 +26,4 @@ describe SprockAssets do
       rack_app.call 'PATH_INFO' => '/other/'
     end
   end
-
-  context 'on generate asset call' do
-    before(:each) do
-      FileUtils.stub(:mkdir_p)
-      File.stub(:open)
-    end
-
-    it 'should create the correct folders' do
-      FileUtils.should_receive(:mkdir_p).with('app/assets/stylesheets/scss')
-      FileUtils.should_receive(:mkdir_p).with('app/assets/javascripts/coffee')
-      SprockAssets.new(nil).generate_assets
-    end
-
-    it 'should write an application.css and a application.js file' do
-      File.should_receive(:open).with('app/assets/javascripts/application.js', 'w')
-      File.should_receive(:open).with('app/assets/stylesheets/application.css', 'w')
-      SprockAssets.new(nil).generate_assets
-    end
-  end
 end
