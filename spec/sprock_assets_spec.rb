@@ -12,25 +12,32 @@ describe SprockAssets do
   end
 
   context 'on Rack initialize' do
+    let(:env) { Sprockets::Environment.any_instance }
+
     it 'takes in custom paths' do
-      env = Sprockets::Environment.any_instance
+      ENV['RACK_ENV'] = 'test'
       env.should_receive(:append_path).with('ASSETS_PATH')
-      env.should_receive(:append_path).with('JAVASCRIPTS_PATH')
-      env.should_receive(:append_path).with('STYLESHEETS_PATH')
+      env.should_receive(:append_path).with('ASSETS_PATH/JAVASCRIPTS_PATH')
+      env.should_receive(:append_path).with('ASSETS_PATH/STYLESHEETS_PATH')
       SprockAssets.new nil, assets_path:      'ASSETS_PATH',
                             javascripts_path: 'JAVASCRIPTS_PATH',
                             stylesheets_path: 'STYLESHEETS_PATH'
     end
 
     it 'sets compressors on compile flag' do
-      env = Sprockets::Environment.any_instance
+      ENV['RACK_ENV'] = 'production'
+      env.stub(:find_asset) { double(:asset, write_to: '') }
       env.should_receive(:js_compressor=)
       env.should_receive(:css_compressor=)
-      SprockAssets.new nil, compile: true
+      SprockAssets.new nil
     end
   end
 
   context 'on Rack request' do
+    before(:each) do
+      ENV['RACK_ENV'] = 'test'
+    end
+
     it 'should invoke Sprocket on URIs under /assets/' do
       rack_app = SprockAssets.new nil
       rack_app.assets.should_receive(:call)
