@@ -39,10 +39,9 @@ class SprockAssets
       assets.append_path @settings[:assets_path]
       assets.append_path @settings[:javascripts_path]
       assets.append_path @settings[:stylesheets_path]
-      if compile
+      if @settings[:compile]
         assets.js_compressor = Uglifier.new({ mangle: true })
         assets.css_compressor = YUI::CssCompressor.new
-        assets.cache = Sprockets::Cache::FileStore.new("/public")
       end
     end
   end
