@@ -2,7 +2,7 @@
 [![Build Status](https://secure.travis-ci.org/nickbarth/SprockAssets.png?branch=master)](https://travis-ci.org/nickbarth/SprockAssets)
 [![Dependency Status](https://gemnasium.com/nickbarth/SprockAssets.png)](https://gemnasium.com/nickbarth/SprockAssets)
 
-SprockAssets is the simpliest and easiest Rack Middleware you can include in your application for compiling your assets on the fly with Sprockets.
+SprockAssets is a Rack middleware that makes compiling your assets on the fly with Sprockets easy and fast.
 
 ## Usage
 
@@ -29,23 +29,19 @@ If you are using Sinatra, you can use the flash hash just like in Rails:
       use SprockAssets
     end
 
-### Generate default assets
+### Create and update the source files
 
-Use the built in generator to generate some default assets.
-
-    bundle exec sprock-assets generate_assets
-
-It will create a directory structure and default assets based on the configured settings.
-
-    tree app/
-    app/
-    └── assets
-        ├── javascripts
-        │   ├── application.js
-        │   └── coffee
-        └── stylesheets
-            ├── application.css.scss
-            └── scss
+<table>
+  <tr>
+    <th>Default source file</th>
+  </tr>
+  <tr>
+    <td>app/assets/stylesheets/application.css</td>
+  </tr>
+  <tr>
+    <td>app/assets/javascripts/application.js</td>
+  </tr>
+</table>
 
 ### Serve compiled assets
 

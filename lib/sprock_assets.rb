@@ -20,13 +20,30 @@ class SprockAssets
       assets_path:      'app',
       javascripts_path: 'app/assets/javascripts',
       stylesheets_path: 'app/assets/stylesheets',
+      compile:          false
     }.merge(settings)
+
+
+    javascript_file = "#{Dir.pwd}/#{@settings[:javascripts_path]}/application.js"
+    unless File.exists? javascript_file
+      raise "Javascript application file (#{javascript_file}) was not found"
+    end
+
+    stylesheet_file = "#{Dir.pwd}/#{@settings[:stylesheets_path]}/application.css"
+    unless File.exists? stylesheet_file
+      raise "Stylesheet application file (#{stylesheet_file}) was not found"
+    end
 
     @assets = Sprockets::Environment.new(Dir.pwd) do |assets|
       assets.logger = Logger.new(STDOUT)
       assets.append_path @settings[:assets_path]
       assets.append_path @settings[:javascripts_path]
       assets.append_path @settings[:stylesheets_path]
+      if compile
+        assets.js_compressor = Uglifier.new({ mangle: true })
+        assets.css_compressor = YUI::CssCompressor.new
+        assets.cache = Sprockets::Cache::FileStore.new("/public")
+      end
     end
   end
 
@@ -36,24 +53,6 @@ class SprockAssets
       @app.call env
     else
       @assets.call env
-    end
-  end
-
-  # Public: Generates the configured file structure for an applications assets.
-  def generate_assets
-    FileUtils.mkdir_p "#{@settings[:javascripts_path]}/coffee"
-    FileUtils.mkdir_p "#{@settings[:stylesheets_path]}/scss"
-    File.open("#{@settings[:javascripts_path]}/application.js", 'w') do |application_js|
-      application_js << (<<-EOS).gsub('      ', '')
-      //= require_tree ./coffee
-      EOS
-    end
-    File.open("#{@settings[:stylesheets_path]}/application.css", 'w') do |application_css|
-      application_css << (<<-EOS).gsub('      ', '')
-      /*
-       *= require_tree ./scss
-       */
-      EOS
     end
   end
 end
