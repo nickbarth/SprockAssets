@@ -1,6 +1,8 @@
-# SprockAssets [![Build Status](https://secure.travis-ci.org/nickbarth/SprockAssets.png?branch=master)](https://travis-ci.org/nickbarth/SprockAssets)
+# SprockAssets
+[![Build Status](https://secure.travis-ci.org/nickbarth/SprockAssets.png?branch=master)](https://travis-ci.org/nickbarth/SprockAssets)
+[![Dependency Status](https://gemnasium.com/nickbarth/SprockAssets.png)](https://gemnasium.com/nickbarth/SprockAssets)
 
-SprockAssets is a Rack Middleware you can include in your application for compiling your assets on the fly with Sprockets.
+SprockAssets is the simpliest and easiest Rack Middleware you can include in your application for compiling your assets on the fly with Sprockets.
 
 ## Usage
 
