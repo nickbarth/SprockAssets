@@ -2,7 +2,7 @@
 [![Build Status](https://secure.travis-ci.org/nickbarth/SprockAssets.png?branch=master)](https://travis-ci.org/nickbarth/SprockAssets)
 [![Dependency Status](https://gemnasium.com/nickbarth/SprockAssets.png)](https://gemnasium.com/nickbarth/SprockAssets)
 
-SprockAssets is a Rack middleware that makes compiling your assets on the fly with Sprockets easy and fast.
+SprockAssets is a Rack middleware that makes compiling your assets easy and fast.
 
 ## Usage
 
@@ -12,7 +12,7 @@ Here is how to use it.
 
     gem 'sprock-assets', require: 'sprock_assets'
 
-### Vanilla Rack apps
+### Rack apps
 
 Add a use to your `config.ru`
 
@@ -33,13 +33,16 @@ You can use assets just like in Rails.
 
 <table>
   <tr>
-    <th>Default source file</th>
+    <th>Source Path</th>
+    <th>Compiled Path</th>
   </tr>
   <tr>
     <td>app/assets/stylesheets/application.css</td>
+    <td>public/assets/stylesheets/application.css</td>
   </tr>
   <tr>
     <td>app/assets/javascripts/application.js</td>
+    <td>public/assets/javascripts/application.js</td>
   </tr>
 </table>
 
@@ -49,7 +52,16 @@ You can use assets just like in Rails.
     curl http://localhost/assets/stylesheets/application.css
     curl http://localhost/assets/javascripts/application.js
 
-Your compiled assets will now be served at their corresponding URIs.
+Your compiled assets will now be served at their corresponding URIs.  When your
+application is run in production your assets will automatically be compiled and
+saved to disk.
+
+### Notes
+
+Make sure you require the compressors if you use SprockAssets in production.
+
+    gem 'yui-compressor', require: 'yui/compressor'
+    gem 'uglifier', require: 'uglifier'
 
 ### License
 WTFPL &copy; 2012 Nick Barth
