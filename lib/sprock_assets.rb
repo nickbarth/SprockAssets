@@ -18,18 +18,20 @@ class SprockAssets
     @app = app
     @settings = {
       assets_path:      'app',
-      javascripts_path: 'app/assets/javascripts',
-      stylesheets_path: 'app/assets/stylesheets',
-      compile:          false
+      compiled_path:    'public',
+      javascripts_path: '/assets/javascripts',
+      stylesheets_path: '/assets/stylesheets',
     }.merge(settings)
 
+    javascript_file = "#{Dir.pwd}/#{@settings[:assets_path]}/#{@settings[:javascripts_path]}/application.js"
+    stylesheet_file = "#{Dir.pwd}/#{@settings[:assets_path]}/#{@settings[:stylesheets_path]}/application.css"
+    javascript_compiled = "#{Dir.pwd}/public/#{@settings[:javascripts_path]}/application.js"
+    stylesheet_compiled = "#{Dir.pwd}/public/#{@settings[:stylesheets_path]}/application.css"
 
-    javascript_file = "#{Dir.pwd}/#{@settings[:javascripts_path]}/application.js"
     unless File.exists? javascript_file
       raise "Javascript application file (#{javascript_file}) was not found"
     end
 
-    stylesheet_file = "#{Dir.pwd}/#{@settings[:stylesheets_path]}/application.css"
     unless File.exists? stylesheet_file
       raise "Stylesheet application file (#{stylesheet_file}) was not found"
     end
@@ -37,11 +39,16 @@ class SprockAssets
     @assets = Sprockets::Environment.new(Dir.pwd) do |assets|
       assets.logger = Logger.new(STDOUT)
       assets.append_path @settings[:assets_path]
-      assets.append_path @settings[:javascripts_path]
-      assets.append_path @settings[:stylesheets_path]
-      if @settings[:compile]
+      assets.append_path "#{@settings[:assets_path]}/#{@settings[:javascripts_path]}"
+      assets.append_path "#{@settings[:assets_path]}/#{@settings[:stylesheets_path]}"
+
+      FileUtils.rm_f([javascript_compiled, stylesheet_compiled])
+
+      if ENV['RACK_ENV'] == 'production'
         assets.js_compressor = Uglifier.new({ mangle: true })
         assets.css_compressor = YUI::CssCompressor.new
+        assets.find_asset('application.js').write_to(javascript_compiled)
+        assets.find_asset('application.css').write_to(stylesheet_compiled)
       end
     end
   end
