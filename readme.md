@@ -20,7 +20,7 @@ Add a use to your `config.ru`
 
 ### Sinatra
 
-If you are using Sinatra, you can use the flash hash just like in Rails:
+You can use assets just like in Rails.
 
     require 'sinatra/base'
     require 'sprock_assets'
