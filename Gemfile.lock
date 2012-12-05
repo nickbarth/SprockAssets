@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sprock-assets (0.9.4)
+    sprock-assets (0.9.5)
       sprockets
 
 GEM

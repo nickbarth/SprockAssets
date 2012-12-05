@@ -23,14 +23,6 @@ describe SprockAssets do
                             javascripts_path: 'JAVASCRIPTS_PATH',
                             stylesheets_path: 'STYLESHEETS_PATH'
     end
-
-    it 'sets compressors on compile flag' do
-      ENV['RACK_ENV'] = 'production'
-      env.stub(:find_asset) { double(:asset, write_to: '') }
-      env.should_receive(:js_compressor=)
-      env.should_receive(:css_compressor=)
-      SprockAssets.new nil
-    end
   end
 
   context 'on Rack request' do

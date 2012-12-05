@@ -41,15 +41,6 @@ class SprockAssets
       assets.append_path @settings[:assets_path]
       assets.append_path "#{@settings[:assets_path]}/#{@settings[:javascripts_path]}"
       assets.append_path "#{@settings[:assets_path]}/#{@settings[:stylesheets_path]}"
-
-      FileUtils.rm_f([javascript_compiled, stylesheet_compiled])
-
-      if ENV['RACK_ENV'] == 'production'
-        assets.js_compressor = Uglifier.new({ mangle: true })
-        assets.css_compressor = YUI::CssCompressor.new
-        assets.find_asset('application.js').write_to(javascript_compiled)
-        assets.find_asset('application.css').write_to(stylesheet_compiled)
-      end
     end
   end
 
